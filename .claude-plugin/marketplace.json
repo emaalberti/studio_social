@@ -6,7 +6,7 @@
   "plugins": [
     {
       "name": "studio-social",
-      "source": "source": "./studio-social",
+      "source": "./studio-social",
       "description": "Contenuti social dalle grafiche ufficiali dei progetti su OneDrive e Confluence"
     }
   ]
