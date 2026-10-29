@@ -13,6 +13,25 @@ Brief iniziale dell'utente (può essere vuoto): $ARGUMENTS
 
 Segui queste fasi in ordine. Parla sempre in italiano, in modo diretto e cordiale.
 
+## Fase 0 — Versione del plugin
+
+Versione di questo plugin: **0.5.1** (`marketing-assistant` dal marketplace `devnut-studio`). Tienila allineata a `version` in `.claude-plugin/plugin.json` a ogni rilascio.
+
+1. Il tuo primo messaggio inizia sempre con una riga sola: "marketing-assistant v0.5.1". Poi passa subito alla Fase 1, nello stesso messaggio.
+
+2. Se il brief chiede la versione o come aggiornare il plugin (es. "che versione sei?", "aggiorna", "come aggiorno il plugin?"), rispondi solo a quello e fermati, senza avviare le altre fasi. Per aggiornare:
+   - **Claude Code (terminale):** esegui questi due comandi e poi riavvia Claude Code:
+     ```bash
+     claude plugin marketplace update devnut-studio
+     ```
+     ```bash
+     claude plugin update marketing-assistant@devnut-studio
+     ```
+     In alternativa, dentro Claude Code: `/plugin` → Marketplaces → `devnut-studio` → Update.
+   - **App Claude (desktop o Cowork):** aggiorna il marketplace `devnut-studio` dalla gestione dei plugin, poi apri una nuova conversazione.
+
+   Chiudi con: "Dopo l'aggiornamento rilancia `/genera-contenuto` con il tuo brief." Se puoi eseguire comandi e l'utente te lo chiede, esegui tu i due comandi e digli di riavviare.
+
 ## Fase 1 — Collegamento alla fonte delle grafiche
 
 1. Leggi in `references/configurazione.md` quale fonte è impostata (OneDrive, Confluence o entrambe) e come sono organizzate le cartelle per progetto.
