@@ -36,8 +36,34 @@ Le grafiche ufficiali stanno su OneDrive/SharePoint. Confluence serve solo a int
 - Spazio principale: `DEVNUT`
 - Non c'è una pagina fissa: dopo aver scelto il progetto, cerca le pagine il cui titolo o testo contiene il nome del progetto insieme a "design", "UX/UI", "brand" o "logo" (es. CQL `space = DEVNUT AND text ~ "<Progetto>" AND (title ~ "design" OR title ~ "brand")`). Se trovi più pagine, usa la più recente e citala nella proposta; se non ne trovi, prosegui solo con OneDrive.
 
-## Contenuto tipico della cartella design
+## Cosa puoi usare dal connettore Microsoft 365
 
-Il plugin funziona con qualsiasi struttura interna, ma riconosce più facilmente nomi come: `loghi`/`logo`, `screenshot`/`screens`, `mockup`, `illustrazioni`/`illustrations`, `icone`/`icons`, `colori`/`palette`, `font`/`typography`. File Figma esportati (PNG/SVG/PDF) sono ottimi; i file `.fig` non sono leggibili direttamente, quindi servono le esportazioni.
+Il connettore **non scarica file**: `read_resource` restituisce testo (HTML, Markdown, JSON, XML, txt, PDF, Office) oppure un'immagine da guardare, e ogni risultato di ricerca ha `downloadUrl: null`. Quindi:
 
-Se nella cartella design c'è un brand book o una pagina del design system (PDF, documento), leggilo: per quel progetto ha la precedenza su `brand.md`.
+- **Utilizzabile nel post:** tutto ciò che arriva come testo. SVG scritti dentro un `.html` o un `.xml` (es. `styleguide.html`, `logo.svg.xml`), componenti HTML e CSS, token e testi.
+- **Solo riferimento visivo:** PNG, JPG e WebP. Puoi guardarli per copiare layout e colori, ma non puoi inserirli nell'artifact.
+- **Non leggibile:** file `.svg` separati, font (`.woff`, `.ttf`), `.fig`.
+
+Per usare uno screenshot o una foto veri serve il file: chiedi all'utente di caricarlo nella chat oppure, in Claude Code, leggilo dalla cartella OneDrive sincronizzata in locale (`~/Library/CloudStorage/OneDrive-…`).
+
+## Struttura standard della cartella design
+
+Le linee guida complete per chi prepara la cartella sono nel documento "Linee guida cartella design per i contenuti social". La struttura attesa è:
+
+```
+<Progetto>/
+  design-system/            (o <Progetto>-Design)
+    README.md               prodotto, pubblici, tono, regole del logo, cose da evitare, indice della styleguide
+    tokens.json             colori HEX, font (con alternativa Google Fonts), raggi
+    styleguide.html         TUTTE le grafiche come SVG inline: logo, illustrazioni, icone, componenti, schermate chiave
+    svg-testo/              copie dei singoli SVG in .svg.xml (facoltativo)
+    sorgenti/               originali per i designer (.svg, .ai, .fig, .png): non usarli
+  marketing/
+    testi-approvati.md      claim, descrizioni, CTA con link, hashtag, dati verificati
+    post/                   post già pubblicati, riferimento di stile
+    screenshot/             PNG di riferimento, nomi parlanti
+```
+
+Ordine di lettura: `README.md` → `tokens.json` → `styleguide.html` (gli elementi hanno id parlanti, es. `logo-orizzontale-chiaro`) → `marketing/testi-approvati.md`. Il README del progetto ha la precedenza su `brand.md`.
+
+Se la cartella non segue questa struttura, cerca comunque file di testo che contengano SVG (`.html`, `.xml`) e cartelle con nomi come `loghi`, `illustrazioni`, `icone`, `colori`, `font`. Se nella cartella design c'è un brand book (PDF, documento), leggilo: per quel progetto ha la precedenza su `brand.md`.

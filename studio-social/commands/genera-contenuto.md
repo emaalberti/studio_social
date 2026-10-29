@@ -9,7 +9,7 @@ Prima di iniziare leggi la skill `contenuti-social` di questo plugin (SKILL.md e
 
 Brief iniziale dell'utente (può essere vuoto): $ARGUMENTS
 
-**Regola fissa: sola lettura.** Su OneDrive, Confluence e ogni altra fonte esterna puoi solo cercare, leggere e scaricare. Non usare mai strumenti che creano, modificano, spostano, condividono o eliminano contenuti (es. creazione o aggiornamento di pagine, upload di file, commenti, ticket, Atlassian Artifacts). Il risultato si consegna solo come artifact di Claude o come file all'utente.
+**Regola fissa: sola lettura.** Su OneDrive, Confluence e ogni altra fonte esterna puoi solo cercare e leggere. Non usare mai strumenti che creano, modificano, spostano, condividono o eliminano contenuti (es. creazione o aggiornamento di pagine, upload di file, commenti, ticket, Atlassian Artifacts). Il risultato si consegna solo come artifact di Claude o come file all'utente.
 
 Segui queste fasi in ordine. Parla sempre in italiano, in modo diretto e cordiale.
 
@@ -29,13 +29,21 @@ Segui queste fasi in ordine. Parla sempre in italiano, in modo diretto e cordial
    - se Microsoft mostra "richiede l'approvazione dell'amministratore", l'amministratore Microsoft 365/Entra deve dare il consenso all'app Claude nel tenant;
    - dopo il collegamento, aprire una nuova conversazione (o riavviare Claude Code) e rilanciare `/genera-contenuto`.
 
-   Caricare i file a mano o indicare una cartella locale è l'ultima risorsa, da offrire solo se il collegamento non è possibile.
+   Sostituire il connettore caricando tutti i file a mano o indicando una cartella locale è l'ultima risorsa, da offrire solo se il collegamento non è possibile. Caricare 1-2 file che il connettore non legge, come uno screenshot, è invece normale (vedi punto 7).
 
 4. **Scegli il progetto.** Se il brief nomina un progetto (es. "post per Turno"), usalo. Altrimenti elenca le cartelle di progetto in Shared / Condivisi e chiedi quale usare con i pulsanti. Questa è la prima domanda all'utente, prima di quelle sul contenuto.
 
 5. **Trova la cartella design** dentro il progetto seguendo l'ordine di ricerca in `configurazione.md` (`<Progetto>-Design`, poi `Design-system`, poi qualunque cartella con "design" nel nome). Se non la trovi, mostra le sottocartelle e chiedi.
 
-6. Esplora la cartella design (anche le sottocartelle) e costruisci mentalmente un inventario: loghi, icone, screenshot dell'app, mockup, illustrazioni, palette/font, eventuale brand book. Non mostrare all'utente l'elenco completo dei file, solo un riepilogo di una riga (es. "In Turno/Turno-Design ho trovato 42 grafiche: 6 loghi, 18 screenshot, 12 illustrazioni, 6 icone").
+6. Esplora la cartella design (anche le sottocartelle) e costruisci mentalmente un inventario: loghi, icone, screenshot dell'app, mockup, illustrazioni, palette/font, eventuale brand book. Leggi per primi `README.md`, `tokens.json` e `styleguide.html` se ci sono (vedi "Struttura standard" in `configurazione.md`).
+
+   Dividi l'inventario in due gruppi, perché il connettore non scarica file (dettagli in "Cosa puoi usare dal connettore" in `configurazione.md`):
+   - **utilizzabili nel post**: SVG dentro file `.html` o `.xml`, componenti HTML, token, testi;
+   - **solo riferimento**: PNG, JPG, WebP e `.svg` separati.
+
+   Non mostrare all'utente l'elenco completo dei file, solo un riepilogo di una riga che dica anche cosa è solo riferimento (es. "In MyTutor/design-system ho trovato la styleguide con 2 loghi, 10 illustrazioni e 24 icone utilizzabili; i 6 screenshot PNG sono solo di riferimento").
+
+7. **Se il materiale utilizzabile non basta**, dillo subito, prima delle domande sul contenuto. Per esempio: c'è solo un logo `.svg` separato o solo PNG, oppure il brief richiede una schermata vera da mostrare o sfocare. Proponi con i pulsanti: caricare ora nella chat i file necessari (indica quali, al massimo 2-3) · ricostruire l'interfaccia con i componenti della styleguide · post senza schermate (solo brand e illustrazioni). Non arrivare alla produzione per scoprire che manca un file.
 
 ## Fase 2 — Domande sul contenuto
 
@@ -68,7 +76,12 @@ Scegli il motore in base al formato (dettagli in `references/formati-piattaforme
 
 Prima di scegliere colori e font, verifica se l'organizzazione ha un **Design System** predefinito e usalo; altrimenti usa le regole in `references/brand.md`.
 
-Usa le grafiche reali scaricate dalla cartella: caricale come asset dell'artifact. Non ridisegnare il logo né inventare schermate dell'app che non esistono.
+Usa le grafiche reali della cartella:
+- gli SVG letti come testo (da `styleguide.html` o da file `.svg.xml`) copiali nell'artifact così come sono, senza ridisegnarli;
+- i file caricati dall'utente nella chat (screenshot, foto) caricali come asset dell'artifact;
+- i PNG e JPG letti dal connettore servono solo da riferimento: non ricostruirli a mano.
+
+Non ridisegnare il logo né inventare schermate dell'app che non esistono. Le schermate ricostruite con i componenti della styleguide vanno bene, ma nella consegna di' che sono ricostruzioni con dati dimostrativi.
 
 ## Fase 5 — Copy e consegna
 
