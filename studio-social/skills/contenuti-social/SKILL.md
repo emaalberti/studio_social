@@ -1,6 +1,7 @@
 ---
 name: contenuti-social
 description: Regole, configurazione e formati per creare contenuti social aziendali (post Instagram, LinkedIn, TikTok, Facebook, caroselli, storie, reel e motion graphic) a partire dalle grafiche ufficiali dell'app salvate su OneDrive o Confluence. Usala sempre con il comando /genera-contenuto, e anche quando l'utente chiede un post, un visual, un reel, un'animazione o una grafica per i social dell'azienda, anche se non nomina il comando.
+user-invocable: false
 ---
 
 # Contenuti social dall'archivio grafiche dell'app
@@ -33,3 +34,5 @@ Quando l'utente lascia scegliere a te, preferisci nell'ordine:
 3. formati ad alta risoluzione (PNG/SVG rispetto a JPG piccoli).
 
 Comunica sempre i nomi dei file scelti nella proposta, così l'utente può correggerti.
+
+
