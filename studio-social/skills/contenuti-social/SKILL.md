@@ -13,7 +13,7 @@ Questa skill fornisce il contesto che il comando `/genera-contenuto` usa a ogni 
 - `references/configurazione.md` — **leggilo sempre per primo**: dice dove sono le grafiche (OneDrive o Confluence) e come sono organizzate le cartelle.
 - `references/brand.md` — colori, font, tono di voce, cose da evitare. Leggilo prima di produrre qualsiasi visual o testo.
 - `references/formati-piattaforme.md` — dimensioni, durate e regole del copy per ogni piattaforma. Leggilo quando sai già piattaforma e formato.
-- `references/linee-guida-cartella-design.md` — come deve essere fatta la cartella design di un progetto, con la checklist. Lo usa `/crea_cartella_design`; leggilo anche quando la cartella di un progetto manca o è incompleta, per dire all'utente cosa serve.
+- `references/linee-guida-cartella-design.md` — come deve essere fatta la cartella design di un progetto, con la checklist. Lo usa `/crea-cartella-design`; leggilo anche quando la cartella di un progetto manca o è incompleta, per dire all'utente cosa serve.
 
 ## Principi
 

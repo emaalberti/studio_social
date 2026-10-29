@@ -1,6 +1,6 @@
 # Linee guida cartella design per i contenuti social
 
-Come deve essere fatta la cartella design di un progetto perché `/genera-contenuto` possa usarla. Il comando `/crea_cartella_design` la genera seguendo queste regole a partire dalle repo frontend in locale; chi la prepara a mano usa la checklist in fondo.
+Come deve essere fatta la cartella design di un progetto perché `/genera-contenuto` possa usarla. Il comando `/crea-cartella-design` la genera seguendo queste regole a partire dalle repo frontend in locale; chi la prepara a mano usa la checklist in fondo.
 
 ## Perché servono
 

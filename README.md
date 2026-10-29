@@ -6,7 +6,7 @@ Il plugin ha due comandi:
 
 | Comando | A cosa serve | Quando |
 |---|---|---|
-| `/marketing-assistant:crea_cartella_design` | crea la cartella design di un progetto leggendo le sue repo frontend in locale | **una volta per progetto**, prima di fare post |
+| `/marketing-assistant:crea-cartella-design` | crea la cartella design di un progetto leggendo le sue repo frontend in locale | **una volta per progetto**, prima di fare post |
 | `/marketing-assistant:genera-contenuto` | crea il post usando quella cartella | ogni volta che serve un contenuto |
 
 Il plugin lavora in **sola lettura** sulle fonti aziendali: non crea né modifica nulla su SharePoint, OneDrive o Confluence.
@@ -40,7 +40,7 @@ Il plugin vede solo i file a cui quella persona ha già accesso.
 Se il progetto ha un frontend:
 
 1. Assicurati di avere sul computer le repo frontend del progetto, aggiornate al branch giusto (es. `git pull` su `main`). Claude non le scarica da GitHub.
-2. Apri Claude Code e lancia `/marketing-assistant:crea_cartella_design <Progetto> <percorso della repo>`, per esempio `/marketing-assistant:crea_cartella_design MyTutor ~/code/mytutor-web`. Se le repo sono più di una (es. web e app), indica tutti i percorsi. Se Claude Code è già aperto dentro la repo, basta il nome del progetto.
+2. Apri Claude Code e lancia `/marketing-assistant:crea-cartella-design <Progetto> <percorso della repo>`, per esempio `/marketing-assistant:crea-cartella-design MyTutor ~/code/mytutor-web`. Se le repo sono più di una (es. web e app), indica tutti i percorsi. Se Claude Code è già aperto dentro la repo, basta il nome del progetto.
 3. Claude legge il codice (token, config Tailwind, CSS, logo, icone, illustrazioni, componenti, testi), ti mostra cosa ha trovato e cosa manca, poi crea la cartella `~/Desktop/<Progetto>-design/` con dentro `design-system/` e `marketing/`, e la verifica. Le repo restano come sono: Claude le legge e basta.
 4. Completa a mano quello che Claude segna come "Da completare", soprattutto i testi approvati.
 5. Copia e incolla `design-system/` e `marketing/`, **come cartelle e non zippate**, nella cartella del progetto su OneDrive: il sito SharePoint del progetto (es. `devnut.sharepoint.com/sites/turno`) o la cartella condivisa con il suo nome (es. `Prodotti/MyTutor`). Va bene dal browser o dalla cartella OneDrive sincronizzata nel Finder.
@@ -69,7 +69,7 @@ studio-social/
   .mcp.json                            server Atlassian per Confluence
   commands/
     genera-contenuto.md                /genera-contenuto: flusso guidato per creare un post
-    crea_cartella_design.md            /crea_cartella_design: crea la cartella design dalle repo frontend in locale
+    crea-cartella-design.md            /crea-cartella-design: crea la cartella design dalle repo frontend in locale
   skills/contenuti-social/
     SKILL.md                           regole generali (nascosta dal menu: user-invocable: false)
     references/configurazione.md       come trovare la cartella design su SharePoint

@@ -18,7 +18,7 @@ Parla sempre in italiano, in modo diretto e cordiale.
 
 ## Fase 0 — Versione e prerequisiti
 
-1. Il tuo primo messaggio inizia con una riga sola: "marketing-assistant v0.6.0".
+1. Il tuo primo messaggio inizia con una riga sola: "marketing-assistant v0.6.1".
 2. Il comando legge file in locale, quindi serve Claude Code (terminale o scheda Code dell'app desktop). Se non hai strumenti per leggere file sul computer, spiega che va lanciato da Claude Code e fermati.
 
 ## Fase 1 — Progetto, repo e destinazione

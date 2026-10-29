@@ -54,7 +54,7 @@ Per usare uno screenshot o una foto veri serve il file: chiedi all'utente di car
 
 ## Struttura standard della cartella design
 
-Le linee guida complete per chi prepara la cartella sono in `linee-guida-cartella-design.md`, e il comando `/crea_cartella_design` la genera dalle repo frontend in locale. La struttura attesa è:
+Le linee guida complete per chi prepara la cartella sono in `linee-guida-cartella-design.md`, e il comando `/crea-cartella-design` la genera dalle repo frontend in locale. La struttura attesa è:
 
 ```
 <Progetto>/
