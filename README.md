@@ -1,25 +1,89 @@
-# Studio Social — plugin Claude
+# Marketing Assistant — plugin Claude
 
-Genera contenuti social partendo dalle grafiche ufficiali dell'app.
+Genera contenuti social (post, caroselli, storie, reel animati) partendo dalle grafiche ufficiali di ogni progetto, salvate su SharePoint/OneDrive.
 
-## Uso
-Digita `/genera-contenuto` (facoltativamente seguito da un'idea, es. `/genera-contenuto lancio dark mode`).
-Claude si collega a OneDrive o Confluence, fa qualche domanda a scelta rapida, propone il concept e produce il visual (Design) o l'animazione, con caption e hashtag.
+Il plugin ha due comandi:
 
-## Prima di distribuirlo (amministratore)
-1. In `skills/contenuti-social/references/configurazione.md` aggiorna la sezione "Progetti noti" con i percorsi reali delle grafiche di ogni progetto (cartella Shared o sito SharePoint).
-2. Se serve, adatta tono di voce e regole "Da evitare" in `skills/contenuti-social/references/brand.md` (colori e font si ricavano per progetto).
-3. Abilita l'accesso a OneDrive tramite il connettore **Microsoft 365** di claude.ai (il plugin non include un server MCP per OneDrive: quelli Microsoft sono specifici per tenant e richiedono una app Entra registrata):
-   - **Amministratore claude.ai**: Admin settings → Connectors → abilita **Microsoft 365** per l'organizzazione.
-   - **Amministratore Microsoft 365 / Entra ID**: concedi il consenso amministrativo all'app Claude nel tenant, così i colleghi non si bloccano su "richiede l'approvazione dell'amministratore".
-   - Per Confluence il server Atlassian è già incluso in `.mcp.json`.
-4. Carica il plugin nel catalogo dell'organizzazione.
+| Comando | A cosa serve | Quando |
+|---|---|---|
+| `/marketing-assistant:prepara-cartella-design` | genera la cartella design di un progetto dal codice del suo frontend | **una volta per progetto**, prima di fare post |
+| `/marketing-assistant:genera-contenuto` | crea il post usando quella cartella | ogni volta che serve un contenuto |
 
-## Primo utilizzo (ogni collega)
-1. Su claude.ai → Settings → Connectors → **Microsoft 365** → Connect, e accedi con l'account aziendale.
-2. Usa Claude Code con il login claude.ai: gli strumenti del connettore compaiono automaticamente (riavvia la sessione dopo il collegamento).
-3. Per Confluence, al primo uso autentica il server Atlassian con `/mcp`.
+Il plugin lavora in **sola lettura** sulle fonti aziendali: non crea né modifica nulla su SharePoint, OneDrive o Confluence.
 
-Il plugin vede solo i file a cui quella persona ha già accesso su OneDrive/Confluence.
+## Installazione
 
-Quando chiedi all'amministratore di abilitare il connettore, ricordagli anche il consenso amministrativo in Entra ID. È il passaggio che più spesso blocca i colleghi al primo collegamento.
+In un terminale:
+
+```bash
+claude plugin marketplace add emaalberti/studio_social
+claude plugin install marketing-assistant@devnut-studio
+```
+
+Il plugin vale sia per Claude Code da terminale sia per la scheda Code dell'app desktop.
+
+### Primo utilizzo (ogni collega)
+1. Su claude.ai → Settings → Connectors → **Microsoft 365** → Connect, con l'account aziendale.
+2. Riavvia la sessione di Claude: gli strumenti del connettore compaiono da soli.
+3. Per Confluence: in una sessione `claude` da terminale lancia `/mcp` e autorizza `marketing-assistant:atlassian`.
+
+Il plugin vede solo i file a cui quella persona ha già accesso.
+
+### Per l'amministratore
+- **claude.ai**: Admin settings → Connectors → abilita **Microsoft 365** per l'organizzazione.
+- **Microsoft 365 / Entra ID**: concedi il consenso amministrativo all'app Claude nel tenant. È il passaggio che più spesso blocca i colleghi al primo collegamento ("richiede l'approvazione dell'amministratore").
+
+## 1. Preparare la cartella design di un progetto
+
+`/genera-contenuto` funziona solo se il progetto ha una cartella design fatta secondo le linee guida. Il motivo: il connettore Microsoft 365 non scarica file, quindi nel post finisce solo ciò che Claude legge come testo. Serve soprattutto un `styleguide.html` con logo, illustrazioni e icone scritti dentro come SVG. PNG e `.svg` separati non bastano.
+
+Se il progetto ha un frontend:
+
+1. Apri Claude Code **nella cartella del repo frontend**.
+2. Lancia `/marketing-assistant:prepara-cartella-design <Progetto>`.
+3. Claude legge il codice (token, config Tailwind, CSS, logo, icone, illustrazioni, componenti, testi), ti mostra cosa ha trovato e cosa manca, poi genera `design-system/` e `marketing/` e li verifica.
+4. Completa a mano quello che Claude segna come "Da completare", soprattutto i testi approvati.
+5. Carica `design-system/` e `marketing/` **non zippate** nel sito SharePoint del progetto (es. `devnut.sharepoint.com/sites/turno`) o nella cartella condivisa con il suo nome (es. `Prodotti/MyTutor`).
+
+Le regole complete, con struttura, formati e checklist, sono in [`linee-guida-cartella-design.md`](studio-social/skills/contenuti-social/references/linee-guida-cartella-design.md). Servono anche a chi prepara la cartella a mano.
+
+## 2. Creare un contenuto
+
+Digita `/marketing-assistant:genera-contenuto`, facoltativamente seguito da un'idea (es. `/marketing-assistant:genera-contenuto storia per MyTutor 2.0`).
+Claude trova la cartella design del progetto, fa qualche domanda a scelta rapida, propone il concept e produce il visual (Design) o l'animazione, con caption e hashtag.
+
+### Se Claude non trova la cartella
+- **Caricata da poco:** la ricerca di SharePoint può impiegare ore a indicizzare file nuovi. Se nel frattempo Claude non la trova, dagli il link della cartella.
+- **Esclusa dalla ricerca:** chi amministra il sito deve controllare Impostazioni sito → Ricerca e offline (visibilità nella ricerca attiva) e, nelle impostazioni avanzate della raccolta, usare **Reindicizza raccolta documenti**.
+- **Permessi:** chi non ha accesso al sito del progetto non può usarne le grafiche.
+
+## Sviluppo del plugin
+
+### Struttura del repo
+
+```
+.claude-plugin/marketplace.json        nome del marketplace (devnut-studio) e cartella del plugin
+studio-social/
+  .claude-plugin/plugin.json           nome del plugin (marketing-assistant) e versione
+  .mcp.json                            server Atlassian per Confluence
+  commands/
+    genera-contenuto.md                /genera-contenuto: flusso guidato per creare un post
+    prepara-cartella-design.md         /prepara-cartella-design: genera la cartella design dal frontend
+  skills/contenuti-social/
+    SKILL.md                           regole generali (nascosta dal menu: user-invocable: false)
+    references/configurazione.md       come trovare la cartella design su SharePoint
+    references/brand.md                regole di brand comuni a tutti i progetti
+    references/formati-piattaforme.md  dimensioni e regole del copy per piattaforma
+    references/linee-guida-cartella-design.md  struttura, formati e checklist della cartella design
+```
+
+### Pubblicare una modifica
+1. Modifica i file in `studio-social/`.
+2. Aumenta la versione **nello stesso commit**, in due punti: `version` in `studio-social/.claude-plugin/plugin.json` e la riga "marketing-assistant vX.Y.Z" in tutti e due i comandi. Senza una nuova versione Claude non vede le modifiche.
+3. Push.
+4. Su ogni computer:
+   ```bash
+   claude plugin marketplace update devnut-studio
+   claude plugin update marketing-assistant@devnut-studio
+   ```
+   poi apri una nuova sessione. In alternativa attiva l'aggiornamento automatico: `/plugin` → Marketplaces → `devnut-studio` → Enable auto-update.

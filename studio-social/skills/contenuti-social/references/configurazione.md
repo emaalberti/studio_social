@@ -54,7 +54,7 @@ Per usare uno screenshot o una foto veri serve il file: chiedi all'utente di car
 
 ## Struttura standard della cartella design
 
-Le linee guida complete per chi prepara la cartella sono nel documento "Linee guida cartella design per i contenuti social". La struttura attesa è:
+Le linee guida complete per chi prepara la cartella sono in `linee-guida-cartella-design.md`, e il comando `/prepara-cartella-design` la genera dal codice del frontend. La struttura attesa è:
 
 ```
 <Progetto>/
