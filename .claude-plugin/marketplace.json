@@ -1,11 +1,11 @@
 {
-  "name": "devnut",
+  "name": "devnut_studio",
   "owner": {
     "name": "Devnut"
   },
   "plugins": [
     {
-      "name": "studio-social",
+      "name": "marketing_assistant",
       "source": "./studio-social",
       "description": "Contenuti social dalle grafiche ufficiali dei progetti su OneDrive e Confluence"
     }
