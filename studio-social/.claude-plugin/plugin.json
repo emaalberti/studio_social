@@ -1,5 +1,5 @@
 {
-  "name": "marketing_assistant",
+  "name": "marketing-assistant",
   "version": "0.4.2",
   "description": "Genera contenuti social (post, caroselli, storie, reel animati) partendo dalle grafiche ufficiali dell'app salvate su OneDrive o Confluence.",
   "author": {
