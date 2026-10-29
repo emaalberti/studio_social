@@ -1,0 +1,13 @@
+{
+  "name": "devnut",
+  "owner": {
+    "name": "Devnut"
+  },
+  "plugins": [
+    {
+      "name": "studio-social",
+      "source": "./",
+      "description": "Contenuti social dalle grafiche ufficiali dei progetti su OneDrive e Confluence"
+    }
+  ]
+}
