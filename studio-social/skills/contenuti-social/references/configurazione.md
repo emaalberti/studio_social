@@ -4,29 +4,35 @@
 
 FONTE: onedrive        <!-- valori possibili: onedrive | confluence | entrambe -->
 
-## OneDrive / SharePoint — organizzazione per progetti
+## OneDrive / SharePoint — trovare il progetto da solo
 
-Le grafiche non sono in un'unica cartella: ogni progetto (app) ha il suo spazio. Può essere una cartella nella sezione **Condivisi / Shared** di OneDrive oppure un **sito SharePoint** dedicato (es. `devnut.sharepoint.com/sites/turno`).
+Il plugin non contiene percorsi: ogni volta trova da solo la cartella design del progetto. Le grafiche di un progetto stanno in un **sito SharePoint** dedicato (es. `devnut.sharepoint.com/sites/turno`) oppure in una cartella condivisa su OneDrive.
 
-### Come trovare la cartella giusta
+**Non affidarti alla ricerca nel contenuto dei file** (`sharepoint_search`): i file caricati da poco possono non essere ancora indicizzati per ore. Usa la ricerca per nome di cartella e poi naviga leggendo gli elenchi delle cartelle con `read_resource`.
 
-1. **Progetto**: se l'utente non lo indica, chiedigli quale progetto usare (pulsanti, max 4 opzioni + "Altro"), partendo dai progetti noti qui sotto.
-2. **Se il progetto è tra i progetti noti**, usa i percorsi indicati lì e salta la ricerca.
-3. **Altrimenti** cerca la cartella per nome del progetto (ricerca cartelle del connettore, non solo la radice del drive personale) e, al suo interno, una sottocartella chiamata in quest'ordine:
-   - `<Progetto>-Design` (es. `Turno-Design`)
-   - `Design-system` / `Design system` / `DesignSystem`
-   - qualunque cartella il cui nome contenga `design` (senza distinguere maiuscole/minuscole)
-4. Se ne trovi più di una, preferisci quella modificata più di recente e cita entrambe nella proposta. Se non ne trovi nessuna, cerca cartelle come `Marketing`, `Screenshot`, `assets`, `Loghi`; se non basta, mostra all'utente le sottocartelle del progetto e chiedi quale contiene le grafiche.
+### 1. Trovare il progetto
 
-### Progetti noti
+- **Il brief nomina il progetto** (es. "post per Turno"): cerca le cartelle con quel nome (`sharepoint_folder_search`, nome = progetto). Nei risultati guarda `webUrl`: il progetto è il sito il cui percorso contiene `/sites/<progetto>/` (senza distinguere maiuscole e minuscole), oppure una cartella che si chiama esattamente come il progetto. Prendi il `driveId` di quel risultato: è la raccolta documenti del progetto.
+- **Il brief non lo nomina:** cerca le cartelle design (`sharepoint_folder_search` con `design`, poi con `kit`) e raggruppa i risultati per sito (`/sites/<nome>/` in `webUrl`). Quei siti sono i progetti già pronti: proponili con i pulsanti (al massimo 4, più "Altro").
+- La ricerca per nome restituisce anche molte sottocartelle (es. 300 risultati per "Turno"): non scorrerle tutte, ti basta il primo risultato con il sito giusto per avere il `driveId`.
 
-**Turno** — piattaforma per creare e gestire tornei sportivi amatoriali (calcio, padel, basket, volley).
-- Sito SharePoint `turno`, raccolta "Documenti condivisi". Non esiste una cartella design né un brand book.
-- Screenshot: `Marketing/Screenshot/Screenshot area admin/` (`risultati.png`, `classifiche.png`, `classifiche elim diretta.png`, `fasi.png`, `programma.png`; vista admin desktop).
-- Illustrazioni sport: `General/assets/formato originale/` e `General/assets/formato webp/` (sottocartelle per sport).
-- `General/Loghi/[A]…[Z]` contiene i loghi delle **squadre**, non quello di Turno. Un file del logo Turno non c'è: se serve, usa il logo visibile negli screenshot (in alto a sinistra, su sfondo navy) e avvisa l'utente che è a bassa risoluzione.
-- Pitch deck: `Marketing/pitch/Turno Sport Pitch Deck_v1.pdf`. È marcato "Riservato": vedi la regola in `brand.md`.
-- Palette ricavata dagli screenshot: navy #0D1421 (sidebar), blu primario #0F69EC (logo), blu pulsanti #00429C, sfondo #EFF1F2. Font: Inter (quello dell'app non è identificato con certezza).
+### 2. Trovare la cartella design
+
+Leggi la radice della raccolta: `read_resource` con `file:///{driveId}/` (la barra finale elenca la radice). Cerca, in quest'ordine, una cartella il cui nome:
+
+1. è `design-system`, `Design-system`, `Design system` o `DesignSystem`;
+2. è `<Progetto>-Design` o `<Progetto>-design-kit`;
+3. contiene `design` (senza distinguere maiuscole e minuscole).
+
+Se la cartella trovata non contiene direttamente `README.md` o `styleguide.html` ma ha una sottocartella `design-system`, entra lì (es. `Turno-design-kit/design-system`). Una cartella `marketing` allo stesso livello contiene i testi approvati.
+
+Puoi indirizzare i file anche per percorso, spazi compresi, senza conoscere l'id: `file:///{driveId}/Turno-design-kit/design-system/styleguide.html`. Il percorso parte dalla radice della raccolta: non mettere "Documenti condivisi" o "Shared Documents".
+
+### 3. Confermare
+
+La cartella giusta contiene almeno uno tra `README.md`, `styleguide.html` e `tokens.json`. Se ce ne sono più di una, usa quella modificata più di recente e cita le altre nella proposta. Se non ne trovi nessuna, cerca cartelle come `Marketing`, `Screenshot`, `assets`, `Loghi` (vecchia organizzazione, solo materiale di riferimento) e di' all'utente che il progetto non ha ancora una cartella design secondo le linee guida. Se non basta, mostra le cartelle della radice e chiedi quale contiene le grafiche.
+
+Tutto quello che serve sul progetto (prodotto, pubblici, tono, regole del logo, cose da evitare) è nel `README.md` della cartella design, non in questo file.
 
 ## Confluence (fonte secondaria)
 

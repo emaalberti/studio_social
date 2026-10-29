@@ -6,7 +6,7 @@ Ogni progetto ha il proprio brand: non esistono colori o font aziendali comuni. 
 2. **File di palette e font** (cartelle o file con nomi come `colori`, `palette`, `colors`, `font`, `typography`): leggi i valori esatti (HEX, nomi dei font).
 3. **Se non c'è nulla di esplicito**: ricava la palette dal logo e dagli screenshot più recenti dell'app (colore primario = quello dominante di logo/pulsanti principali, sfondo = quello dell'interfaccia). Per i font usa un sans-serif neutro (Inter) se non riconosci con certezza quello dell'app.
 
-Nella proposta (Fase 3) riporta sempre in una riga palette e font scelti e da dove li hai presi (es. "Colori da Turno-Design/palette.pdf: #1A73E8, #FFB300; font Poppins"), così l'utente può correggerli prima della produzione.
+Nella proposta (Fase 3) riporta sempre in una riga palette e font scelti e da dove li hai presi (es. "Colori da design-system/tokens.json: #2B63F1, #2C2F30; font Epilogue e Manrope"), così l'utente può correggerli prima della produzione.
 
 Se l'organizzazione ha un Design System predefinito su Claude per quel progetto, ha la precedenza su tutto quanto sopra.
 
