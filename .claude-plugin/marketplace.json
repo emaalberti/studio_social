@@ -5,7 +5,7 @@
   },
   "plugins": [
     {
-      "name": "marketing_assistant",
+      "name": "marketing-assistant",
       "source": "./studio-social",
       "description": "Contenuti social dalle grafiche ufficiali dei progetti su OneDrive e Confluence"
     }
